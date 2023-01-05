@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Smiley, SmileyMeh, SmileySad } from "phosphor-react";
 
 type IActivities = {
   id: number;
@@ -44,7 +45,15 @@ function App() {
                   </span>
                   - Titulo
                 </h5>
-                <h6>Prioridade: Normal</h6>
+                <h6>
+                  Prioridade:
+                  <span className="ms-1 text-black">
+                    <Smiley className="me-1" size={20} />
+                    {/* <SmileySad className="me-1" size={20} />
+                    <SmileyMeh className="me-1" size={20} /> */}
+                    Normal
+                  </span>
+                </h6>
               </div>
               <p className="card-text">{activity.description}</p>
             </div>
