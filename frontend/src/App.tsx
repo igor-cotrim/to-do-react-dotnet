@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Smiley, SmileyMeh, SmileySad } from "phosphor-react";
+import { Pencil, Smiley, SmileyMeh, SmileySad, Trash } from "phosphor-react";
 
 type IActivities = {
   id: number;
@@ -45,9 +45,9 @@ function App() {
                   </span>
                   - Titulo
                 </h5>
-                <h6>
+                <h6 className="d-flex justify-content-center align-items-center">
                   Prioridade:
-                  <span className="ms-1 text-black">
+                  <span className="ms-1 text-black d-flex justify-content-center align-items-center">
                     <Smiley className="me-1" size={20} />
                     {/* <SmileySad className="me-1" size={20} />
                     <SmileyMeh className="me-1" size={20} /> */}
@@ -56,6 +56,16 @@ function App() {
                 </h6>
               </div>
               <p className="card-text">{activity.description}</p>
+              <div className="d-flex justify-content-end pt-2 m-0 border-top">
+                <button className="btn btn-sm btn-outline-primary me-2 d-flex justify-content-center align-items-center">
+                  <Pencil className="me-2" size={16} />
+                  Editar
+                </button>
+                <button className="btn btn-sm btn-outline-danger d-flex justify-content-center align-items-center">
+                  <Trash className="me-2" size={16} />
+                  Deletar
+                </button>
+              </div>
             </div>
           </div>
         ))}
