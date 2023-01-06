@@ -4,10 +4,15 @@ import { IActivity } from "../../models";
 
 type ActivityProps = {
   activity: IActivity;
+  editActivity: (id: number) => void;
   deleteActivity: (id: number) => void;
 };
 
-const Activity = ({ activity, deleteActivity }: ActivityProps) => {
+const Activity = ({
+  activity,
+  editActivity,
+  deleteActivity,
+}: ActivityProps) => {
   const changeCardWithPriority = (priority: string) => {
     switch (priority) {
       case "1":
@@ -62,7 +67,10 @@ const Activity = ({ activity, deleteActivity }: ActivityProps) => {
         </div>
         <p className="card-text">{activity.description}</p>
         <div className="d-flex justify-content-end pt-2 m-0 border-top">
-          <button className="btn btn-sm btn-outline-primary me-2 d-flex justify-content-center align-items-center">
+          <button
+            className="btn btn-sm btn-outline-primary me-2 d-flex justify-content-center align-items-center"
+            onClick={() => editActivity(activity.id)}
+          >
             <Pencil className="me-2" size={16} />
             Editar
           </button>
