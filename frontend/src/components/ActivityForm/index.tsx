@@ -1,37 +1,25 @@
-import { Plus } from "phosphor-react";
 import { useEffect, useState } from "react";
+import { Plus } from "phosphor-react";
 
+import { initialActivity } from "../../App";
 import { IActivity } from "../../models";
 
 type ActivityFormProps = {
   addActivity: (activity: IActivity) => void;
   updateActivity: (activity: IActivity) => void;
   cancelActivity: () => void;
-  descriptionRef: any;
-  titleRef: any;
-  priorityRef: any;
   selectedActivity: IActivity;
-};
-
-const initialActivity: IActivity = {
-  id: 0,
-  title: "",
-  description: "",
-  priority: "",
 };
 
 const ActivityForm = ({
   addActivity,
   updateActivity,
   cancelActivity,
-  descriptionRef,
-  titleRef,
-  priorityRef,
   selectedActivity,
 }: ActivityFormProps) => {
-  const [activity, setActivity] = useState<IActivity>(currentActivity());
+  const [activity, setActivity] = useState<IActivity>(initialActivity);
 
-  const inputTextHandler = (
+  const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
     >
@@ -47,14 +35,6 @@ const ActivityForm = ({
     cancelActivity();
     setActivity(initialActivity);
   };
-
-  function currentActivity(): IActivity {
-    if (selectedActivity.id !== 0) {
-      return selectedActivity;
-    } else {
-      return initialActivity;
-    }
-  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -86,9 +66,9 @@ const ActivityForm = ({
             name="title"
             type="text"
             className="form-control"
-            ref={titleRef}
-            onChange={inputTextHandler}
+            onChange={handleChange}
             value={activity.title}
+            required
           />
         </div>
         <div className="col-md-6">
@@ -98,8 +78,7 @@ const ActivityForm = ({
           <select
             name="priority"
             className="form-select"
-            ref={priorityRef}
-            onChange={inputTextHandler}
+            onChange={handleChange}
             value={activity.priority}
           >
             <option defaultValue="0">Selecione...</option>
@@ -115,8 +94,7 @@ const ActivityForm = ({
           <textarea
             name="description"
             className="form-control"
-            ref={descriptionRef}
-            onChange={inputTextHandler}
+            onChange={handleChange}
             value={activity.description}
           />
           <hr />

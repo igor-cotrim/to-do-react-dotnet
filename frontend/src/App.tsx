@@ -1,14 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { IActivity } from "./models";
 import { ActivityList, ActivityForm } from "./components";
 
-let initialValues: IActivity[] = [
-  { id: 1, description: "Atividade 1", title: "Teste", priority: "1" },
-  { id: 2, description: "Atividade 2", title: "Teste", priority: "3" },
-];
-
-const initialActivity: IActivity = {
+export const initialActivity: IActivity = {
   id: 0,
   title: "",
   description: "",
@@ -16,13 +11,9 @@ const initialActivity: IActivity = {
 };
 
 function App() {
-  const [activities, setActivities] = useState<IActivity[]>(initialValues);
+  const [activities, setActivities] = useState<IActivity[]>([]);
   const [activity, setActivity] = useState<IActivity>(initialActivity);
   const [index, setIndex] = useState(0);
-
-  const descriptionRef = useRef<HTMLInputElement>(null);
-  const titleRef = useRef<HTMLInputElement>(null);
-  const priorityRef = useRef<HTMLSelectElement>(null);
 
   const editActivity = (id: number) => {
     const filtedActivities = activities.filter(
@@ -72,10 +63,6 @@ function App() {
         addActivity={addActivity}
         updateActivity={updateActivity}
         cancelActivity={cancelActivity}
-        descriptionRef={descriptionRef}
-        titleRef={titleRef}
-        priorityRef={priorityRef}
-        // activities={activities}
         selectedActivity={activity}
       />
       <ActivityList
