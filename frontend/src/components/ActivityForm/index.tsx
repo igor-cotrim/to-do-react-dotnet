@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Plus } from "phosphor-react";
 
-import { initialActivity } from "../../App";
+import { initialActivity } from "../../pages/Home";
 import { IActivity } from "../../models";
 
 type ActivityFormProps = {
