@@ -4,14 +4,15 @@ import { Check, Plus, X } from "phosphor-react";
 
 import { IActivity } from "../../models";
 import { ActivityList, ActivityForm } from "../../components";
-import { api } from "../../api";
-
-export const initialActivity: IActivity = {
-  id: 0,
-  title: "",
-  description: "",
-  priority: "",
-};
+import {
+  addActivity,
+  cancelActivity,
+  deleteActivity,
+  editActivity,
+  getAllActivities,
+  initialActivity,
+  updateActivity,
+} from "./data";
 
 const Home = () => {
   const [showActivityModal, setShowActivityModal] = useState(false);
@@ -35,64 +36,14 @@ const Home = () => {
     setShowConfirmModal(!showConfirmModal);
   };
 
-  const handleAllActivities = async () => {
-    const response = await api.get("activity");
-
-    return response.data;
-  };
-
-  const editActivity = (id: number) => {
-    const filtedActivities = activities.filter(
-      (activity) => activity.id === id
-    );
-
-    setActivity(filtedActivities[0]);
-    handleActivityModal();
-  };
-
-  const deleteActivity = async (id: number) => {
-    handleConfirmModal(0);
-    const response = await api.delete(`activity/${id}`);
-
-    if (response) {
-      const filtedActivities = activities.filter(
-        (activity) => activity.id !== id
-      );
-
-      setActivities([...filtedActivities]);
-    }
-  };
-
-  const cancelActivity = () => {
-    handleActivityModal();
-    setActivity(initialActivity);
-  };
-
-  const updateActivity = async (activity: IActivity) => {
-    handleActivityModal();
-    const response = await api.put(`activity/${activity.id}`, activity);
-    const { id } = response.data;
-
-    setActivities(
-      activities.map((item) => (item.id === id ? response.data : item))
-    );
-    setActivity(initialActivity);
-  };
-
-  const addActivity = async (activity: IActivity) => {
-    handleActivityModal();
-    const response = await api.post("activity", activity);
-
-    setActivities((prev) => [...prev, response.data]);
-  };
-
   useEffect(() => {
     (async () => {
-      const allActivities = await handleAllActivities();
+      const allActivities = await getAllActivities();
 
       if (allActivities) setActivities(allActivities);
     })();
   }, []);
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-end mt-2 pb-3 border-bottom border-1">
@@ -111,7 +62,9 @@ const Home = () => {
       </div>
       <ActivityList
         activities={activities}
-        editActivity={editActivity}
+        editActivity={(id: number) =>
+          editActivity(id, activities, setActivity, handleActivityModal)
+        }
         handleConfirmModal={handleConfirmModal}
       />
       <Modal show={showActivityModal} onHide={handleActivityModal}>
@@ -122,9 +75,21 @@ const Home = () => {
         </Modal.Header>
         <Modal.Body>
           <ActivityForm
-            addActivity={addActivity}
-            updateActivity={updateActivity}
-            cancelActivity={cancelActivity}
+            addActivity={(activity: IActivity) =>
+              addActivity(activity, handleActivityModal, setActivities)
+            }
+            updateActivity={(activity: IActivity) =>
+              updateActivity(
+                activity,
+                handleActivityModal,
+                setActivities,
+                activities,
+                setActivity
+              )
+            }
+            cancelActivity={() =>
+              cancelActivity(handleActivityModal, setActivity)
+            }
             selectedActivity={activity}
           />
         </Modal.Body>
@@ -142,7 +107,14 @@ const Home = () => {
         <Modal.Footer className="d-flex justify-content-between">
           <button
             className="btn btn-outline-success me-2 d-flex align-items-center gap-1"
-            onClick={() => deleteActivity(activity.id)}
+            onClick={() =>
+              deleteActivity(
+                activity.id,
+                () => handleConfirmModal(0),
+                activities,
+                setActivities
+              )
+            }
           >
             <Check size={18} />
             Sim
