@@ -5,7 +5,7 @@ export const initialActivity: IActivity = {
   id: 0,
   title: "",
   description: "",
-  priority: "",
+  priority: "undefined",
 };
 
 export const getAllActivities = async () => {

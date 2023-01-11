@@ -13,9 +13,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using src.Data;
+using Api.Data;
 
-namespace src
+namespace Api
 {
   public class Startup
   {
@@ -40,7 +40,7 @@ namespace src
         });
       services.AddSwaggerGen(c =>
       {
-        c.SwaggerDoc("v1", new OpenApiInfo { Title = "src", Version = "v1" });
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
       });
       services.AddCors();
     }

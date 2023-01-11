@@ -1,4 +1,4 @@
-namespace src.Models
+namespace Api.Models
 {
   public enum Priorities
   {
