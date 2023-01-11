@@ -56,7 +56,6 @@ const ActivityForm = ({
 
   return (
     <>
-      <h1>Atividade {activity.id !== 0 ? activity.id : ""}</h1>
       <form className="row g-3" onSubmit={handleSubmit}>
         <div className="col-md-6">
           <label htmlFor="title" className="form-label">
@@ -101,13 +100,13 @@ const ActivityForm = ({
         </div>
         <div className="col-12 mt-0">
           {activity.id === 0 ? (
-            <button className="btn btn-outline-secondary" type="submit">
+            <button className="btn btn-outline-success" type="submit">
               <Plus size={14} className="me-1" />
-              Atividade
+              Salvar
             </button>
           ) : (
             <>
-              <button type="submit" className="btn btn-outline-secondary me-2">
+              <button type="submit" className="btn btn-outline-success me-2">
                 <Plus size={14} className="me-1" />
                 Salvar
               </button>

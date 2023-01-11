@@ -6,13 +6,13 @@ import { changeCardWithPriority } from "./functions";
 type ActivityProps = {
   activity: IActivity;
   editActivity: (id: number) => void;
-  deleteActivity: (id: number) => void;
+  handleConfirmModal: (id: number) => void;
 };
 
 const Activity = ({
   activity,
   editActivity,
-  deleteActivity,
+  handleConfirmModal,
 }: ActivityProps) => (
   <div
     key={activity.id}
@@ -49,7 +49,7 @@ const Activity = ({
         </button>
         <button
           className="btn btn-sm btn-outline-danger d-flex justify-content-center align-items-center"
-          onClick={() => deleteActivity(activity.id)}
+          onClick={() => handleConfirmModal(activity.id)}
         >
           <Trash className="me-2" size={16} />
           Deletar

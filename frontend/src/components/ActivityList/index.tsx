@@ -4,13 +4,13 @@ import Activity from "../Activity";
 type ActivityListProps = {
   activities: IActivity[];
   editActivity: (id: number) => void;
-  deleteActivity: (id: number) => void;
+  handleConfirmModal: (id: number) => void;
 };
 
 const ActivityList = ({
   activities,
   editActivity,
-  deleteActivity,
+  handleConfirmModal,
 }: ActivityListProps) => (
   <div className="mt-3">
     {activities.map((activity) => (
@@ -18,7 +18,7 @@ const ActivityList = ({
         key={activity.id}
         activity={activity}
         editActivity={editActivity}
-        deleteActivity={deleteActivity}
+        handleConfirmModal={handleConfirmModal}
       />
     ))}
   </div>
