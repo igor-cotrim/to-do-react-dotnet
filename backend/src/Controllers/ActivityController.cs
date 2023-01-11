@@ -25,12 +25,12 @@ namespace src.Controllers
       return _context.Activities.FirstOrDefault(act => act.Id == id);
     }
     [HttpPost]
-    public IEnumerable<Activity> Post(Activity activity)
+    public Activity Post(Activity activity)
     {
       _context.Activities.Add(activity);
 
       if (_context.SaveChanges() > 0)
-        return _context.Activities;
+        return _context.Activities.FirstOrDefault(act => act.Id == activity.Id);
       else
         throw new Exception("Você não conseguiu adicionar uma nova atividade");
 

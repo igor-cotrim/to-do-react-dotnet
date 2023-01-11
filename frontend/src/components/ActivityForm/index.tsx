@@ -81,10 +81,10 @@ const ActivityForm = ({
             onChange={handleChange}
             value={activity.priority}
           >
-            <option defaultValue="0">Selecione...</option>
-            <option value="1">Baixa</option>
-            <option value="2">Normal</option>
-            <option value="3">Alta</option>
+            <option value="undefined">Selecione...</option>
+            <option value="low">Baixa</option>
+            <option value="normal">Normal</option>
+            <option value="high">Alta</option>
           </select>
         </div>
         <div className="col-md-12">
