@@ -3,7 +3,7 @@ import { Button, Modal } from "react-bootstrap";
 import { Check, Plus, X } from "phosphor-react";
 
 import { IActivity } from "../../models";
-import { ActivityList, ActivityForm } from "../../components";
+import { ActivityList, ActivityForm, Title } from "../../components";
 import {
   addActivity,
   cancelActivity,
@@ -46,10 +46,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-end mt-2 pb-3 border-bottom border-1">
-        <h1 className="m-0 p-0">
-          Atividade {activity.id !== 0 ? activity.id : ""}
-        </h1>
+      <Title title={`Atividade ${activity.id !== 0 ? activity.id : ""}`}>
         <Button
           variant="outline-secondary"
           onClick={() => {
@@ -59,7 +56,7 @@ const Home = () => {
         >
           <Plus size={28} />
         </Button>
-      </div>
+      </Title>
       <ActivityList
         activities={activities}
         editActivity={(id: number) =>
