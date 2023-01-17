@@ -1,5 +1,5 @@
-import { IActivity } from "../../models";
-import Activity from "../Activity";
+import { IActivity } from "../../../models";
+import Activity from "../ActivityItem";
 
 type ActivityListProps = {
   activities: IActivity[];

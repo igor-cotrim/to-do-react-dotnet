@@ -14,7 +14,7 @@ import {
   updateActivity,
 } from "./data";
 
-const Home = () => {
+const Activities = () => {
   const [showActivityModal, setShowActivityModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [activities, setActivities] = useState<IActivity[]>([]);
@@ -129,4 +129,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Activities;

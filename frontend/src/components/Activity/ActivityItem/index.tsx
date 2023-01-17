@@ -1,6 +1,6 @@
 import { Pencil, Trash } from "phosphor-react";
 
-import { IActivity } from "../../models";
+import { IActivity } from "../../../models";
 import { changeCardWithPriority } from "./functions";
 
 type ActivityProps = {
@@ -9,7 +9,7 @@ type ActivityProps = {
   handleConfirmModal: (id: number) => void;
 };
 
-const Activity = ({
+const ActivityItem = ({
   activity,
   editActivity,
   handleConfirmModal,
@@ -59,4 +59,4 @@ const Activity = ({
   </div>
 );
 
-export default Activity;
+export default ActivityItem;
