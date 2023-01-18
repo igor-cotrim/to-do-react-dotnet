@@ -1,5 +1,7 @@
+import { ClientList } from "../../components";
+
 const Clients = () => {
-  return <div>Clients</div>;
+  return <ClientList />;
 };
 
 export default Clients;

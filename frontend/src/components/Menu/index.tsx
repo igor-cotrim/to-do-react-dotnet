@@ -10,10 +10,10 @@ const Menu = () => (
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
-          <Nav.Link as={NavLink} to="/clientes" activeClassName="active">
+          <Nav.Link as={NavLink} to="/cliente/lista" activeClassName="active">
             Clientes
           </Nav.Link>
-          <Nav.Link as={NavLink} to="/atividades" activeClassName="active">
+          <Nav.Link as={NavLink} to="/atividade/lista" activeClassName="active">
             Atividades
           </Nav.Link>
         </Nav>
