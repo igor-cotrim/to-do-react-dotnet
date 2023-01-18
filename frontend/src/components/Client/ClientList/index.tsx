@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { UserGear, UserMinus } from "phosphor-react";
-import { Form, InputGroup } from "react-bootstrap";
+import { FormControl, InputGroup } from "react-bootstrap";
 
 import { Title } from "../../../components";
 
@@ -35,14 +36,27 @@ const clients = [
 ];
 
 const ClientList = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filtedClients = clients.filter((client) => {
+    return Object.values(client)
+      .join(" ")
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+  });
+
   return (
     <>
       <Title title="ClientList" />
       <InputGroup className="mb-3 mt-3">
         <InputGroup.Text>Buscar:</InputGroup.Text>
-        <Form.Control
-          aria-label="Default"
-          aria-describedby="inputGroup-sizing-default"
+        <FormControl
+          onChange={handleInputChange}
+          placeholder="Buscar por nome do cliente"
         />
       </InputGroup>
       <table className="table table-striped table-hover">
@@ -57,7 +71,7 @@ const ClientList = () => {
           </tr>
         </thead>
         <tbody>
-          {clients.map((client) => (
+          {filtedClients.map((client) => (
             <tr key={client.id}>
               <td>{client.id}</td>
               <td>{client.name}</td>
