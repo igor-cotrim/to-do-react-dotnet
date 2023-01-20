@@ -1,26 +1,42 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+var builder = WebApplication.CreateBuilder(args);
 
-namespace Api
-{
-  public class Program
-  {
-    public static void Main(string[] args)
+// Add services to the container
+builder.Services.AddDbContext<DataContext>(
+  options => options.UseSqlite(builder.Configuration.GetConnectionString("Default"))
+);
+builder.Services.AddScoped<IActivityRepo, ActivityRepo>();
+builder.Services.AddScoped<IGeneralRepo, GeneralRepo>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
+
+builder.Services
+  .AddControllers()
+  .AddJsonOptions(options =>
     {
-      CreateHostBuilder(args).Build().Run();
-    }
+      options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+  {
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
+  });
+builder.Services.AddCors();
 
-    public static IHostBuilder CreateHostBuilder(string[] args) =>
-        Host.CreateDefaultBuilder(args)
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-              webBuilder.UseStartup<Startup>();
-            });
-  }
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+  app.UseDeveloperExceptionPage();
+  app.UseSwagger();
+  app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ToDo v1"));
 }
+
+// app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.UseCors(option => option.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
+app.MapControllers();
+
+app.Run();
+
