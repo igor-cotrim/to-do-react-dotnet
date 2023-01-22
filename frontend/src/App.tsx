@@ -1,4 +1,4 @@
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import {
   Activities,
@@ -10,13 +10,14 @@ import {
 
 function App() {
   return (
-    <Switch>
-      <Route path="/" exact component={Dashboard} />
-      <Route path="/atividade/lista" component={Activities} />
-      <Route path="/cliente/lista" component={ClientList} />
-      <Route path="/cliente/detalhe/:id?" component={ClientForm} />
-      <Route component={PageNotFound} />
-    </Switch>
+    <Routes>
+      <Route path="*" element={<PageNotFound />} />
+      <Route path="/" element={<Dashboard />} />
+      <Route path="/atividade/*" element={<Activities />} />
+      <Route path="/cliente/*" element={<ClientList />} />
+      <Route path="/cliente/detalhe/" element={<ClientForm />} />
+      <Route path="/cliente/detalhe/:id" element={<ClientForm />} />
+    </Routes>
   );
 }
 

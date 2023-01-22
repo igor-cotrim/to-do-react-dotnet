@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Plus, UserGear, UserMinus } from "phosphor-react";
 import { Button, FormControl, InputGroup } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { Title } from "../../../components";
 
@@ -38,7 +38,7 @@ const clients = [
 
 const ClientList = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value);
@@ -52,7 +52,7 @@ const ClientList = () => {
   });
 
   const newClient = () => {
-    history.push("/cliente/detalhe");
+    navigate("/cliente/detalhe");
   };
 
   return (
@@ -93,9 +93,7 @@ const ClientList = () => {
                 <div>
                   <button
                     className="btn btn-sm btn-outline-primary me-2"
-                    onClick={() =>
-                      history.push(`/cliente/detalhe/${client.id}`)
-                    }
+                    onClick={() => navigate(`/cliente/detalhe/${client.id}`)}
                   >
                     <UserGear className="me-2" size={16} />
                     Editar

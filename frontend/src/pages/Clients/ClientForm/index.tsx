@@ -1,21 +1,20 @@
 import { ArrowLeft } from "phosphor-react";
 import { Button } from "react-bootstrap";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Title } from "../../../components";
 
-type paramsProps = {
-  id: string | undefined;
-};
-
 const ClientForm = () => {
-  const history = useHistory();
-  const { id }: paramsProps = useParams();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   return (
     <>
       <Title title={`ClientForm ${!!id ? id : ""}`}>
-        <Button variant="outline-secondary" onClick={() => history.goBack()}>
+        <Button
+          variant="outline-secondary"
+          onClick={() => navigate("/cliente/lista")}
+        >
           <ArrowLeft className="me-2" size={18} />
           Voltar
         </Button>
